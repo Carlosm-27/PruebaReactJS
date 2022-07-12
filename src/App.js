@@ -1,9 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-import header from './layout/header';
-import sidebar from './layout/sidebar';
-import Users from './components/Users';
-import  {Albums, Example} from './components/Albums';
+import logo from "./logo.svg";
+import "./App.css";
+import header from "./layout/header";
+import sidebar from "./layout/sidebar";
+import Users from "./components/Users";
+import { Albums, Example } from "./components/Albums";
 
 function App() {
   return (
