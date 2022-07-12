@@ -16,30 +16,46 @@ export function Albums() {
   //API - list photos
   const [photos, setPhotos] = useState();
 
-  const handleShow = (id) => {
-    var urlFotos =
+  
+  const handleShow = (id, nameAlbum, idUser) => {
+      var urlPhotos =
       "https://jsonplaceholder.typicode.com/albums/" + id + "/photos";
 
-    const fecthApiPhotos = async () => {
-      const response = await fetch(urlFotos);
-      const responseJSON = await response.json();
-      setPhotos(responseJSON);
-      console.log(photos);
+      var urlUsers = "https://jsonplaceholder.typicode.com/users/"+idUser
+      
+      const fecthApiPhotos = async () => {
+        const response = await fetch(urlPhotos);
+        const responseJSON = await response.json();
+        setPhotos(responseJSON);
+      };
+
+      const fecthApiUsers = async () => {
+        const response = await fetch(urlUsers);
+        const responseJSON = await response.json();
+        console.log(responseJSON);
+        setNameUser(responseJSON.username);
+      };
+
+
+
+      setNameAlbum(nameAlbum);
+      fecthApiPhotos();
+      fecthApiUsers();
+      setShow(true);
     };
-
-    fecthApiPhotos();
-    setShow(true);
-  };
-
+    
   //API - list albums
-  const [albums, SetAlbums] = useState();
+  const [albums, setAlbums] = useState();
   const url = "https://jsonplaceholder.typicode.com/albums";
 
   const fecthApi = async () => {
     const response = await fetch(url);
     const responseJSON = await response.json();
-    SetAlbums(responseJSON);
+    setAlbums(responseJSON);
   };
+
+  const [nameAlbum, setNameAlbum] = useState();
+  const [nameUser, setNameUser] = useState();
 
   useEffect(() => {
     fecthApi();
@@ -57,7 +73,7 @@ export function Albums() {
 
       >
         <Modal.Header closeButton>
-          <Modal.Title>PHOTOS</Modal.Title>
+          <Modal.Title>"{nameAlbum }"  by {nameUser}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
@@ -113,7 +129,7 @@ export function Albums() {
                   <td>
                     <button
                       className="btn btn-info btn-outline text-white"
-                      onClick={() => handleShow(elemento.id)}
+                      onClick={() => handleShow(elemento.id, elemento.title, elemento.userId)}
                     >
                       show photos
                     </button>
