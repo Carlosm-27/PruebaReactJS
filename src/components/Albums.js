@@ -5,15 +5,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import OwlCarousel from 'react-owl-carousel';
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
-
+import Card from "react-bootstrap/Card";
+import { Row, Col} from "react-bootstrap";
 
 export function Albums() {
   //useState para el modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+
+  //API - list photos
+  const [photos, setPhotos] = useState();
+
   const handleShow = (id) => {
     var urlFotos =
       "https://jsonplaceholder.typicode.com/albums/" + id + "/photos";
@@ -22,15 +24,12 @@ export function Albums() {
       const response = await fetch(urlFotos);
       const responseJSON = await response.json();
       setPhotos(responseJSON);
-      console.log(responseJSON);
+      console.log(photos);
     };
 
     fecthApiPhotos();
     setShow(true);
   };
-
-  //API - list photos
-  const [photos, setPhotos] = useState();
 
   //API - list albums
   const [albums, SetAlbums] = useState();
@@ -49,60 +48,43 @@ export function Albums() {
   return (
     <>
       <Modal
+        size="xl"
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        dialogClassName="modal-100w"
+
       >
         <Modal.Header closeButton>
           <Modal.Title>PHOTOS</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <OwlCarousel className="owl-theme" loop margin={10} nav>
-            <div class="item">
-              <h4>1</h4>
-            </div>
-            <div class="item">
-              <h4>2</h4>
-            </div>
-            <div class="item">
-              <h4>3</h4>
-            </div>
-            <div class="item">
-              <h4>4</h4>
-            </div>
-            <div class="item">
-              <h4>5</h4>
-            </div>
-            <div class="item">
-              <h4>6</h4>
-            </div>
-            <div class="item">
-              <h4>7</h4>
-            </div>
-            <div class="item">
-              <h4>8</h4>
-            </div>
-            <div class="item">
-              <h4>9</h4>
-            </div>
-            <div class="item">
-              <h4>10</h4>
-            </div>
-            <div class="item">
-              <h4>11</h4>
-            </div>
-            <div class="item">
-              <h4>12</h4>
-            </div>
-          </OwlCarousel>
-          ;{" "}
+          <Row>
+            {!photos ? (
+              <span>Alerta</span>
+            ) : (
+              photos.map((element, index) => {
+                return (
+                  <Col>
+                    <Card style={{ width: "18rem", marginTop: "30px" }} key={index}>
+                      <Card.Img variant="top" src={element.thumbnailUrl} />
+                      <Card.Body>
+                        <Card.Title className="font-weight-bolder">Title : {element.title}</Card.Title>
+                        <Card.Text>
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                );
+              })
+            )}
+          </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Understood</Button>
         </Modal.Footer>
       </Modal>
 
