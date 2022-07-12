@@ -3,7 +3,7 @@ import './App.css';
 import header from './layout/header';
 import sidebar from './layout/sidebar';
 import Users from './components/Users';
-import Albums from './components/Albums';
+import  {Albums, Example} from './components/Albums';
 
 function App() {
   return (

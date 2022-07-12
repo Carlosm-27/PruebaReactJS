@@ -1,5 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -20,7 +21,7 @@ function Users() {
 
     return(
 
-        <>
+        <DataTable>
         <table className="mx-auto w-75 mt-5 table table-hover table-striped">
             <thead>
                 <tr>
@@ -54,7 +55,7 @@ function Users() {
                 }
             </tbody>
         </table>
-        </>
+        </DataTable>
 
 
     );
