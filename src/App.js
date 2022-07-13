@@ -1,15 +1,23 @@
-import logo from "./logo.svg";
 import "./App.css";
-import header from "./layout/header";
-import sidebar from "./layout/sidebar";
 import Users from "./components/Users";
-import { Albums, Example } from "./components/Albums";
+import { Albums } from "./components/Albums";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navbar from "./components/NavBar";
 
 function App() {
   return (
     <>
-      <Users></Users>
-      <Albums></Albums>
+      <Router>
+        <Navbar></Navbar>
+        <Switch>
+          <Route path="/albums">
+            <Albums></Albums>
+          </Route>
+          <Route path="/">
+            <Users></Users>
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }
